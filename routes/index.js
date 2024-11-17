@@ -2,16 +2,10 @@ var express = require('express');
 var router = express.Router();
 var userModel = require('../model/users');
 var postModel = require('../model/post');
-const passport = require('passport');
-const localStrategy = require('passport-local');
 const { uploadImage } = require("./helper/imgbb")
 const { newUser, validateLogin } = require("../controller/user.controller")
 const authorizeUser = require("../middleware/auth")
 const jwt = require("jsonwebtoken");
-
-
-passport.use(new localStrategy(userModel.authenticate()));
-
 
 router.get('/', function (req, res) {
   res.send('server is started.');

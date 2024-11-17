@@ -1,8 +1,4 @@
 const mongoose = require('mongoose');
-const plm = require('passport-local-mongoose')
-
-mongoose.connect('mongodb://127.0.0.1:27017/pintrestProject')
-.then(()=> console.log("DB Connrcted!!"));
 
 const userSchema = mongoose.Schema({
   name: String,
@@ -20,7 +16,5 @@ const userSchema = mongoose.Schema({
     ref: 'post'
   }]
 })
-
-userSchema.plugin(plm);
 
 module.exports = mongoose.model("user", userSchema)
