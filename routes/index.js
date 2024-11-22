@@ -60,9 +60,22 @@ router.post('/fileupload', authorizeUser, async function (req, res) {
   res.send({ success: true });
 });
 
-router.get('/logout', authorizeUser, async function (req, res) {
-  res.clearCookie('token');
-  return res.send("logout successfully.")
-})
+router.post('/logout', authorizeUser, async function (req, res) {
+  try {
+      // Clear the token from cookies
+      res.clearCookie('token', {
+          httpOnly: true, // Prevent access via JavaScript
+          secure: process.env.NODE_ENV === 'production', // Only allow cookies over HTTPS in production
+          sameSite: 'strict', // Protect against CSRF
+      });
+
+      // Send a success message
+      return res.status(200).json({ message: 'Logout successful.' });
+  } catch (error) {
+      console.error("Logout Error:", error.message);
+      return res.status(500).json({ message: 'Internal server error during logout' });
+  }
+});
+
 
 module.exports = router;
