@@ -48,7 +48,8 @@ const validateLogin = async (req, res) => {
             );
             res.cookie("token", token, {
                 httpOnly: true,         // Helps prevent XSS attacks
-                secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+                secure: true,
+                samSite: "None", // Use secure cookies in production
                 maxAge: 3600000,        // Cookie expiry in milliseconds (1 hour)
             });
             return res.send({ success: true, token: token });
