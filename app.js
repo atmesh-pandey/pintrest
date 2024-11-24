@@ -13,12 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors({
-  origin: '*',  // Allow all origins
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true  // Allow cookies if needed
-}));
+app.use(cors({ origin: RegExp(process.env.CORS_URL, "i"), credentials: true }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
