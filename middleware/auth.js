@@ -30,7 +30,7 @@ const jwt = require("jsonwebtoken");
 function authorizeUser(req, res, next) {
   try {
     // Extract the token from cookies
-    const token = req.cookies.token;
+    const token = req.cookies?.token || req.headers?.token;
 
     // Log for debugging (remove in production)
     console.log("Cookie Token:", token);
